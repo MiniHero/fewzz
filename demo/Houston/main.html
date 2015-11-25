@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <title>UI-Houston</title>    
+    <link rel="icon" href="favicon.ico" type="image/vnd.microsoft.icon">    
+    
+    <link rel="stylesheet" href="css/lib-156a67713c.css">
+
+    <link rel="stylesheet" href="css/app-17f9db054a.css">
+
+</head>
+
+<body>
+    <nav id="navbar" class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#"><i class = "fa fa-tablet"></i>&nbsp;Houston, Texas<span style="font-size:13px; font-style: italic">&nbsp;(internal prototype ver. 0.6.0)</span></a>
+                
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">                    
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li id="switch-theme-btn"><a href="http://www.fewzz.com" target='_blank'>FewZZ GIS</a>
+                    </li>
+                    <li><a href="/docs/Housotn_Website_Help.pdf" target='_blank'>Help Doc</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+	
+    <div id="main-container">
+
+		<div id="toolbar" class="row-fluid" >
+			<ul id="menu-tab" class="nav nav-tabs" role="tablist">
+				<li class="active"><a href="#toolbar-navgation" role="tab" data-toggle="tab">Navigation</a></li>
+				<li><a href="#toolbar-query" role="tab" data-toggle="tab">Query</a></li>
+				<li><a href="#toolbar-layers" role="tab" data-toggle="tab">Layers</a></li>
+				<li><a href="#toolbar-draw" role="tab" data-toggle="tab">Draw</a></li>
+				<li><a href="#toolbar-identify" role="tab" data-toggle="tab">Identify</a></li>
+				<li><a href="#toolbar-export" role="tab" data-toggle="tab">Export Map</a></li>
+				<li><a href="#toolbar-measure" role="tab" data-toggle="tab">Measure</a></li>
+				<li><a href="#toolbar-edit" role="tab" data-toggle="tab">Edit</a></li>
+				<li><a href="#toolbar-routing" role="tab" data-toggle="tab">Routing</a></li>
+                <li><a href="#toolbar-analysis" role="tab" data-toggle="tab">Analysis</a></li>
+			</ul>
+			<div class="tab-content">
+				<div class="tab-pane active" id="toolbar-navgation">
+					<div class="panel panel-default">
+						<div class="panel-body row">
+							<div class="well toolbar-container">
+								<div class="toolbar-big-button toolbar-pan">
+									<i class="fa fa-arrows-alt fa-2x"></i>
+									<p>Pan</p>
+								</div>
+								<div class="toolbar-big-button toolbar-zoomin">
+									<i class="fa fa-search-plus fa-2x"></i>
+
+									<p>Zoom In</p>
+								</div>
+								<div class="toolbar-big-button toolbar-zoomout">
+									<i class="fa fa-search-minus fa-2x"></i>
+
+									<p>Zoom Out</p>
+								</div>
+							</div>
+							<div class="well toolbar-container">
+								<div class="toolbar-big-button toolbar-initialextent">
+									<i class="fa fa-compress fa-2x"></i>
+
+									<p>Initial Extent</p>
+								</div>
+								<div class="toolbar-big-button toolbar-fullextent">
+									<i class="fa fa-arrows fa-2x"></i>
+
+									<p>Full Extent</p>
+								</div>
+								<div class="toolbar-big-button toolbar-previousextent">
+									<i class="fa fa-reply fa-2x"></i>
+
+									<p>Previous Extent</p>
+								</div>
+								<div class="toolbar-big-button toolbar-nextextent">
+									<i class="fa fa-share fa-2x"></i>
+
+									<p>Next Extent</p>
+								</div>
+							</div>	
+							<div class="well toolbar-container">
+								<div class="toolbar-big-button dropdown">
+									<div class="toolbar-bookmarks dropdown-toggle" type = "button"  id="toolbar-bookmark-dropdown-menu" data-toggle="dropdown" style="white-space: normal; width:80px; display: inline-block;">								
+										<i class="fa fa-bookmark-o fa-2x"></i>
+										<span class="caret"></span>
+										<p>Bookmarks</p>
+									</div>
+									<ul class="dropdown-menu" role="menu" aria-labelledby="toolbar-bookmark-dropdown-menu">
+										<li role="presentation" class="toolbar-save" data-toggle="modal" data-target="#bookmark_dialog">
+											<a role="menuitem" display: inline-block; tabindex="-1" href="#">
+												<i class = "fa fa-plus pull-left fa-border"></i>Save Bookmark
+											</a>
+										</li>
+										<li role="presentation" id ="clearBookmark" class="toolbar-clear">
+											<a role="menuitem" tabindex="-1" href="#">
+												<i class = "fa fa-minus pull-left fa-border"></i>Clear Bookmarks
+											</a>
+										</li>
+										<li role="presentation" class="divider"></li>
+									</ul>
+								</div>
+								
+								<div class="modal fade bs-example-modal-sm" id="bookmark_dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+									<div class="modal-content">
+									  <div class="modal-header">										
+									  </div>
+									  <div class="modal-body">
+										<form>
+										  <div class="form-group">
+											<label for="bookmark-name" class="control-label">Name</label>
+											<input type="text" class="form-control" id="bookmark-name">
+										  </div>										  
+										</form>
+									  </div>
+									  <div class="modal-footer">
+										<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+										<button type="button" id="saveBookmark" class="btn btn-primary">Save changes</button>
+									  </div>
+									</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="tab-pane" id="toolbar-query">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div class="well toolbar-container">
+								<div class="toolbar-big-button toolbar-simplequery">
+									<i class="fa fa-search fa-2x"></i>
+									<p>Simple Query</p>
+								</div>
+								<div class="toolbar-big-button toolbar-spatialquery">
+									<i class="fa fa-search fa-2x"></i>
+									<p>Spatial Query</p>
+								</div>
+							</div>
+							<!-- <div class="well toolbar-container">
+								<div class="dropdown toolbar-big-button">
+									<div class="dropdown-toggle" type="button" id="toolbar-external-layer-dropdown-menu" data-toggle="dropdown" style="display: inline-block;">
+										<i class="fa fa-globe fa-2x"></i>
+										<span class="caret"></span>
+										<p>External Base Map</p>										
+									</div>									
+									<ul class="dropdown-menu" role="menu" aria-labelledby="toolbar-external-layer-dropdown-menu">
+										<li role="presentation" class="toolbar-external-basemap-google">
+											<a role="menuitem" tabindex="-1" href="#"><i
+												class = "fa fa-google pull-left fa-border"></i>&nbsp;Google Map</a>
+										</li>
+										<li role="presentation" class="toolbar-external-basemap-bing">
+											<a role="menuitem" tabindex="-1" href="#"><i
+												class = "fa fa-windows pull-left fa-border"></i>&nbsp;Bing Map</a>
+										</li>
+									</ul>
+								</div>								
+							</div> -->
+						</div>
+					</div>
+				</div>
+				<div class="tab-pane" id="toolbar-layers">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div class="well toolbar-container">
+								<div class="toolbar-big-button toolbar-show-layers">
+									<i class="fa fa-list fa-2x"></i>
+									<p>Show Layers</p>
+								</div>
+								<div class="dropdown toolbar-big-button">
+									<div class=" dropdown-toggle" type="button" id="toolbar-add-layer-dropdown-menu" data-toggle="dropdown" style="display: inline-block;">
+										<i class="fa fa-plus fa-2x "></i>
+										<span class="caret"></span>
+										<p>Add Layer</p>
+									</div>
+									<ul class="dropdown-menu" role="menu" aria-labelledby="toolbar-add-layer-dropdown-menu">
+										<li role="presentation" class="toolbar-addWfsMapLayer" data-toggle="modal" data-target="#addWfsLayer_dialog">
+											<a role="menuitem" id = "addWfsMapLayer" tabindex="-1" href="#">Add WFS Map Layer</a>
+										</li>
+										<li role="presentation" class="toolbar-addWmsMapLayer" data-toggle="modal" data-target="#addWmsLayer_dialog">
+											<a role="menuitem" id = "addWmsMapLayer" tabindex="-1" href="#">Add WMS Map Layer</a>
+										</li>										
+										<!-- <li role="presentation" class="toolbar-addShapeFile" data-toggle="modal" data-target="#addLocalLayer_dialog">
+											<a role="menuitem" id = "addShapeFile" tabindex="-1" href="#">Add Shapefile</a>
+										</li>
+										<li role="presentation" class="toolbar-addCSV" data-toggle="modal" data-target="#addLocalLayer_dialog">
+											<a role="menuitem" id = "addCSV" tabindex="-1" href="#">Add CSV</a>
+										</li> -->
+										<li role="presentation" class="toolbar-addGeoJson" data-toggle="modal" data-target="#addLocalLayer_dialog">
+											<a role="menuitem" id = "addKML" tabindex="-1" href="#">Add GeoJSON</a>
+										</li>
+										<li role="presentation" class="toolbar-addKML" data-toggle="modal" data-target="#addLocalLayer_dialog">
+											<a role="menuitem" id = "addKML" tabindex="-1" href="#">Add KML</a>
+										</li>
+										<li role="presentation" class="toolbar-addGML2" data-toggle="modal" data-target="#addLocalLayer_dialog">
+											<a role="menuitem" id = "addGML2" tabindex="-1" href="#">Add GML2</a>
+										</li>
+										<li role="presentation" class="toolbar-addGML3" data-toggle="modal" data-target="#addLocalLayer_dialog">
+											<a role="menuitem" id = "addGML3" tabindex="-1" href="#">Add GML3</a>
+										</li>
+									</ul>
+								</div>
+								<div class="modal fade bs-example-modal-sm" id="addLocalLayer_dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+									<div class="modal-content">
+									  <div class="modal-header">	
+										<label for="layer-name" class="modal-title">Local Files</label>
+									  </div>
+									  <div class="modal-body">
+										  <div class="form-group">
+											<input type="file" class="btn btn-primary" id="files" name="files[]" style="width:100%">
+											<div id="drop_zone" class="" style="padding: 8px; border:1px solid #ccc; height: 50px">Drop a geojson file here<i class="fa fa-plus"></i></div>
+											<div class="" id="local-map-layers" style="overflow-y:scroll;height:100px"></div>
+										  </div>										  
+										
+									  </div>
+									  <div class="modal-footer">
+										<button type="button" id="addLocalLayer-cancel-button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+										<button type="button" id="addLocalLayer-add-button" class="btn btn-primary disabled">Add</button>
+									  </div>
+									</div>
+									</div>
+								</div>
+								<div class="modal fade bs-example-modal-sm" id="addWfsLayer_dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+									<div class="modal-content">
+									  <div class="modal-header">										
+									  </div>
+									  <div class="modal-body">
+										<form>
+										  <div class="form-group">
+											<label for="layer-name" class="control-label">WFS Map Service</label>
+											<div class="input-group">
+												<div class="input-group-addon">URL</div>
+												<input type="text" placeholder="http://" class="form-control" id="layer-name">
+												<span class="input-group-btn"><button id="addWfsLayer-parse-button" type="button" class="btn btn-primary">Parse</button>
+												</span>
+											</div>
+											
+											<div class="tree" id="wfs-map-layers" style="overflow-y:scroll;height:250px"></div>
+										  </div>										  
+										</form>
+									  </div>
+									  <div class="modal-footer">
+										<button type="button" id="addWfsLayer-cancel-button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+										<button type="button" id="addWfsLayer-add-button" class="btn btn-primary disabled">Add</button>
+									  </div>
+									</div>
+									</div>
+								</div>
+								<div class="modal fade bs-example-modal-sm" id="addWmsLayer_dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+									<div class="modal-content">
+									  <div class="modal-header">										
+									  </div>
+									  <div class="modal-body">
+										<form>
+										  <div class="form-group">
+											<label for="layer-name" class="control-label">Map Service</label>
+											<div class="input-group">
+												<div class="input-group-addon">URL</div>
+												<input type="text" placeholder="http://" class="form-control" id="layer-name">
+												<span class="input-group-btn"><button id="addWmsLayer-parse-button" type="button" class="btn btn-primary">Parse</button>
+												</span>
+											</div>
+											
+											<div class="tree" id="wms-map-layers" style="overflow-y:scroll;height:250px"></div>
+										  </div>										  
+										</form>
+									  </div>
+									  <div class="modal-footer">
+										<button type="button" id="addWmsLayer-cancel-button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+										<button type="button" id="addWmsLayer-add-button" class="btn btn-primary disabled">Add</button>
+									  </div>
+									</div>
+									</div>
+								</div>								
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="tab-pane" id="toolbar-draw">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div class="well toolbar-container">
+								<div class="toolbar-big-button toolbar-drawpoint">
+									<i class="fa fa-dot-circle-o fa-2x"></i>
+									<p>Point</p>
+								</div>
+								<div class="toolbar-big-button toolbar-drawline">
+									<i class="fa fa-minus fa-2x"></i>
+									<p>Line</p>
+								</div>
+								<div class="toolbar-big-button toolbar-freehand-line">
+									<i class="fa fa-hand-o-up fa-2x"></i>
+									<p>Free Line</p>
+								</div>
+								<div class="toolbar-big-button toolbar-drawpolygon">
+									<i class="fa fa-folder-o fa-2x"></i>
+									<p>Polygon</p>
+								</div>
+								<div class="toolbar-big-button toolbar-freehand-polygon">
+									<i class="fa fa-hand-o-up fa-2x"></i>
+									<p>Free Polygon</p>
+								</div>
+								<div class="toolbar-big-button toolbar-drawrectangle">
+									<i class="fa fa-square-o fa-2x"></i>
+									<p>Rectangle</p>
+								</div>
+								<div class="toolbar-big-button toolbar-drawsqaure">
+									<i class="fa fa-square-o fa-2x"></i>
+									<p>Square</p>
+								</div>
+								<div class="toolbar-big-button toolbar-drawcircle">
+									<i class="fa fa-circle-thin fa-2x"></i>
+									<p>Circle</p>
+								</div>
+								<!-- 
+								<div class="toolbar-big-button toolbar-draweclipse">
+									<i class="fa fa-pencil-square-o fa-2x"></i>
+									<p>Eclipse</p>
+								</div> -->
+								<div class="toolbar-big-button toolbar-drawclear">
+									<i class="fa fa-times-circle fa-2x"></i>
+									<p>Clear</p>
+								</div>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="tab-pane" id="toolbar-identify">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div class="well toolbar-container">
+								<div class="toolbar-big-button toolbar-pointidentify">
+									<i class="fa fa-search fa-2x"></i>
+									<p>Point Identify</p>
+								</div>
+								<!-- <div class="toolbar-big-button toolbar-freehandidentify">
+									<i class="fa fa-search fa-2x"></i>
+									<p>Freehand Identify</p>
+								</div> -->
+								<div class="toolbar-big-button toolbar-lineidentify">
+									<i class="fa fa-search fa-2x"></i>
+									<p>Line Identify</p>
+								</div>
+								<div class="toolbar-big-button toolbar-polygonidentify">
+									<i class="fa fa-search fa-2x"></i>
+									<p>Polygon Identify</p>
+								</div>
+								<div class="toolbar-big-button toolbar-rectangleidentify">
+									<i class="fa fa-search fa-2x"></i>
+									<p>Rectangle Identify</p>
+								</div>                                
+								
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="tab-pane" id="toolbar-export">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div class="well toolbar-container">
+								<!-- <div class="toolbar-big-button toolbar-printmap">
+									<i class="fa fa-print fa-2x"></i>
+									<p>Print Map</p>
+								</div> -->
+								
+								<a class="toolbar-big-button toolbar-exportmap" href="#" id="toolbar-exportmap" download="map.png">
+									<i class="fa fa-save fa-2x"></i>
+									<p>Export Map</p>
+								</a>  
+								
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="tab-pane" id="toolbar-measure">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div class="well toolbar-container">
+								<div class="toolbar-big-button toolbar-measuredistance">
+									<i class="fa  fa-bar-chart-o fa-2x"></i>
+									<p>Measure Distance</p>
+								</div>
+								<div class="toolbar-big-button toolbar-measurearea">
+									<i class="fa  fa-bar-chart-o fa-2x"></i>
+									<p>Measure Area</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="tab-pane" id="toolbar-projection">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div class="well toolbar-container">
+								<div class="toolbar-big-button toolbar-plotgivencoordinates">
+									<i class="fa fa-search fa-2x"></i>
+									<p>Plot Given Coordinates</p>
+								</div>
+								<div class="toolbar-big-button toolbar-coordinatereprojection">
+									<i class="fa fa-search fa-2x"></i>
+									<p>Coordinate Re-projection</p>
+								</div>
+								<div class="toolbar-big-button toolbar-mapreprojection">
+									<i class="fa fa-search fa-2x"></i>
+									<p>Map Re-projection</p>
+								</div>
+								<div class="toolbar-big-button toolbar-clearall">
+									<i class="fa fa-times-circle fa-2x"></i>
+									<p>Clear All</p>
+								</div>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="tab-pane" id="toolbar-edit">
+					<div class="panel panel-default" style="white-space: nowrap;">
+						<div class="panel-body">
+							<div class="well toolbar-container">
+								<div class="toolbar-big-button dropdown">
+									<div class="toolbar-editlayer dropdown-toggle" type = "button"  id="toolbar-editlayer-dropdown-menu" data-toggle="dropdown" style="white-space: normal; width:80px; display: inline-block;">								
+										<i class="fa fa-align-justify fa-2x"></i>
+										<span class="caret"></span>
+										<p>Layer</p>
+									</div>
+									<ul class="dropdown-menu" role="menu" aria-labelledby="toolbar-editlayer-dropdown-menu">
+																			
+									</ul>
+								</div>
+							</div>
+							<div class="well toolbar-container">
+								<div class="toolbar-big-button toolbar-addFeature">
+									<i class="fa fa-plus-square fa-2x"></i>
+									<p>Add Feature</p>
+								</div>
+								<div class="toolbar-big-button toolbarDeleteFeature">
+									<i class="fa fa-minus-square fa-2x"></i>
+									<p>Delete Feature</p>
+								</div>
+								<div class="toolbar-big-button toolbar-editGeometry">
+									<i class="fa fa-edit fa-2x"></i>
+									<p>Edit Geometry</p>
+								</div>
+								<div class="toolbar-big-button toolbarEditAttribute">
+									<i class="fa fa-edit fa-2x"></i>
+									<p>Edit Attribute</p>
+								</div>								
+								<div class="toolbar-big-button toolbarSelectFeatures">
+									<i class="fa fa-search fa-2x"></i>
+									<p>Select Features</p>
+								</div>
+								<!-- <div class="toolbar-big-button toolbar-deSelectFeatures">
+									<i class="fa fa-search fa-2x"></i>
+									<p>Deselect Features</p>
+								</div> -->
+								<div class="toolbar-big-button toolbarDeSelectAllFeatures">
+									<i class="fa fa-search fa-2x"></i>
+									<p>Deselect All Features</p>
+								</div>
+								<!-- <div class="dropdown toolbar-big-button dropdown-toggle" id="toolbar-external-layer-dropdown-menu" data-toggle="dropdown" style="white-space: normal; width:80px">
+									<p>Selected Feature Options</p>
+									<ul class="dropdown-menu" role="menu" aria-labelledby="toolbar-selectedFeatureOptions-dropdown-menu">
+										<li role="presentation" class="toolbar-delete">
+											<a role="menuitem" tabindex="-1" href="#">
+												<i class = "fa fa-windows pull-left fa-border"></i>Delete
+											</a>
+										</li>
+										<li role="presentation" class="toolbar-cut">
+											<a role="menuitem" tabindex="-1" href="#">
+												<i class = "fa fa-windows pull-left fa-border"></i>Cut
+											</a>
+										</li>
+										<li role="presentation" class="toolbar-reshape">
+											<a role="menuitem" tabindex="-1" href="#">
+												<i class = "fa fa-windows pull-left fa-border"></i>Reshape
+											</a>
+										</li>
+										<li role="presentation" class="toolbar-union">
+											<a role="menuitem" tabindex="-1" href="#">
+												<i class = "fa fa-windows pull-left fa-border"></i>Union
+											</a>
+										</li>
+									</ul>
+								</div> -->
+								<!-- <div class="toolbar-big-button toolbar-coordinatereprojection">
+									<i class="fa fa-search fa-2x"></i>
+									<p>Save Edits</p>
+								</div>
+								<div class="toolbar-big-button toolbar-mapreprojection">
+									<i class="fa fa-times fa-2x"></i>
+									<p>Cancel</p>
+								</div> -->
+							</div>
+							</div>
+						</div>
+					</div>
+					
+				<div class="tab-pane" id="toolbar-routing">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div class="well toolbar-container">
+								<div class="toolbar-big-button toolbar-routing-point-point">
+									<i class="fa fa-road fa-2x"></i>
+									<p>Point-Point</p>
+								</div>
+								<div class="toolbar-big-button toolbar-routing-point-multipoint">
+									<i class="fa fa-road fa-2x"></i>
+									<p>Point-MultiPoint</p>
+								</div>
+								<div class="toolbar-big-button toolbar-routing-salesman">
+									<i class="fa fa-road fa-2x"></i>
+									<p>Salesman</p>
+								</div>
+							</div>
+							<div class="well toolbar-container">
+								<div class="toolbar-big-button toolbarRoutingGeocoding">
+									<i class="fa fa-road fa-2x"></i>
+									<p>Geocoding</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+                <div class="tab-pane" id="toolbar-analysis">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div class="well toolbar-container">
+								<div class="toolbar-big-button toolbar-surroundings">
+									<i class="fa fa-bicycle fa-2x"></i>
+									<p>Surroundings</p>
+								</div>
+                                <div class="toolbar-big-button toolbar-demographic">
+									<i class="fa fa-pie-chart fa-2x"></i>
+									<p>Demographic</p>
+								</div>
+								<div class="toolbar-big-button toolbar-mls">
+									<i class="fa fa-home fa-2x"></i>
+									<p>MLS</p>
+								</div>
+                                <div class="toolbar-big-button toolbar-crime">
+									<i class="fa fa-user-secret fa-2x"></i>
+									<p>Crime</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+                
+			</div>
+		</div>		
+			
+		<div id="main-panel" class="">
+			<div id="left-sidebar" class="col-md-3 col-lg-3 col-sm-3 col-xs-3"></div>
+			<div id="map-container" class="col-md-12 col-lg-12">
+				<ul id="on-map-toolbar" class="pager">
+					<li>
+						<a data-toggle="tooltip" data-placement="top" title="toolbar toggle" id="toolbar-toggle" style="float: left;"><i class = "fa fa-caret-up"></i></a>
+					</li>
+					<li>
+						<a data-toggle="tooltip" data-placement="top" title="sidebar toggle" id="left-sidebar-toggle" style="float: left;"><i class = "fa fa-caret-right"></i></a>
+					</li>
+				</ul>
+			</div>
+		</div>
+    </div>
+
+    <script src="js/app-f8e730d414.js"></script>
+
+</body>
+
+</html>

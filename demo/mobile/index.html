@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <title>Fewzz GIS inc.</title>    
+</head>
+
+<body style="background-color:#252525;">
+    <center id="splashScreen" >        
+        <div style="background-color:whitesmoke;padding:25px;height:100%">
+            <h3 style="color:tgrey">Disclaimer</h3>
+            <div style=" background-color:whitesmoke;padding:0; width:100%; height:70%; overflow-y:scroll; border: solid 1px lightgrey">            
+                <p style="text-align:justify">
+                    This Mobile Mapping System presents an interactive map showing geographical and demographical information in Harris County, TX. All the data are downloaded or referenced from government agency or open source community. This map represents the information that has been made available for the use of this system and does not necessarily include the most complete and/or accurate data and therefore may reflect:
+                    <ul style="text-align:justify">
+                        <li>Information not yet verified by further investigation</li>
+                        <li>Information that may include mechanical or human error</li>
+                    </ul>
+                </p>
+                <p style="text-align:justify">
+               Fewzz GIS Inc. does not guarantee (either express or implied) the accuracy, completeness, timeliness, or correct sequencing of the information showing on the map. Fewzz GIS Inc. shall have no liability for any error or omission, or for the use of, or the results obtained from the use of the Mobile Mapping System. In addition, Fewzz GIS Inc. caution against using the data provided on the map to make decisions/comparisons regarding the safety, real estate hunting or any other commercial activities in Houston area.
+                </p style="text-align:justify">
+                <p style="text-align:justify">
+                This Mobile Mapping System is built based on open source technologies and Fewzz GIS Inc.’s in-house developed software and toolsets. The app is a prototype and is only created for our customers as a demo.
+                </p>
+                <p style="text-align:justify">
+                The use of the information in this app indicates the app user's unconditional acceptance of all risks associated with the use of the data provided in the Mobile Mapping System.
+                </p>            
+            </div>
+            <div style="margin-top:5px">
+                <button id="declineDisclaimer" class="btn btn-danger">Decline</button>
+                <button id="acceptDisclaimer" class="btn btn-primary">Accept</button>
+            </div>
+        </div>
+    </center>
+    <nav id="navbar" class="navbar navbar-default" role="navigation" style="height:8%">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <a class="navbar-brand" href="index.html"><i class = "fa fa-location-arrow"></i>&nbsp;Houston, Texas</a>
+            </div>
+        </div>
+    </nav>
+
+    <div id="main-container">
+        <div id="main-panel" class="">
+            <div id="left-sidebar" class="col-md-3 col-lg-3 col-sm-3 col-xs-3" style="overflow-y:auto"></div>
+            <div id="map-container" class="col-md-12 col-lg-12">
+                <ul id="toolbar-left" class="pager">
+                    <li>
+                        <a data-placement="top" id="leftSidebarToggle" style="float: left;border-radius: 0px;"><i class = "fa fa-bars fa-2x"></i></a>
+                    </li>
+                </ul>
+                <ul id="toolbar-right" class="pager">
+                    <li id="getCurrentLocation">
+                        <a data-placement="top" style="float:right;border-radius: 0px;"><i class = "fa fa-dot-circle-o fa-2x"></i></a>
+                    </li>
+                </ul>
+                <ul id="toolbar-bottom" class="pager" >
+                    <li data-toggle="modal" data-target="#settingsModal">
+                        <a data-placement="top" id="bottomSidebarToggle" style="float: left;border-radius: 0px;"><i class = "fa fa-gear fa-2x"></i></a>
+                    </li>                    
+                </ul>
+                <div id="settingsModal" class="modal fade" role="dialog">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h3 id="settingsLabel">Settings</h3>
+                          </div>
+                          <div class="modal-body">
+                            <form class="form-horizontal">
+                              <div class="form-group">
+                                <div class="input-group col-xs-12">
+                                  <label class="col-xs-6">Search Range</label>
+                                  <span class="dropdown col-xs-6">
+                                    <button class="btn btn-default dropdown-toggle" type="button" id="featureRange" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">1</button>
+                                    <ul class="dropdown-menu" aria-labelledby="featureRange">
+                                      <li><a href="#">1</a></li>
+                                      <li><a href="#">2</a></li>
+                                      <li><a href="#">5</a></li>
+                                    </ul>
+                                    mile(s)
+                                  </span>
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                <div class="input-group col-xs-12">
+                                  <label class="col-xs-5">Display Map</label>
+                                  <label class="col-xs-2 col-xs-offset-1 radio-inline">
+                                    <input id="displayMap" type="radio" name="displayMap" checked="true">Yes</label>
+                                  <label class="col-xs-3 col-xs-offset-9 radio-inline">
+                                    <input id="notdisplayMap" type="radio" name="displayMap">No
+                                  </label>
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                <div class="input-group col-xs-12">
+                                  <label class="col-xs-6">Contact Us</label>
+                                  <div>
+                                    <a href="mailto:support@fewzz.com?subject=Mobile App (Ver 0.4) Feedback"><i class="fa fa-envelope fa-2x" style="color:#d79833"></i></a>
+                                    <a href="https://www.facebook.com/fewzzGIS" target="_blank"><i class="fa fa-facebook-square fa-2x" style="color:#3b5998"></i></a>
+                                    <a href="https://twitter.com/FewzzGIS" target="_blank"><i class="fa fa-twitter-square fa-2x" style="color:#44ccff"></i></a>
+                                    <a href="https://www.linkedin.com/company/fewzz-gis" target="_blank"><i class="fa fa-linkedin-square fa-2x" style="color:#0077b5"></i></a>
+                                  </div>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                          <div class="modal-footer">
+                            <button id="appExit" class="btn btn-danger col-xs-3"><i class="fa fa-sign-out"></i> Exit</button>
+                            <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+            </div>
+        </div>        
+    </div>
+    <div class="" style="width:100%; height:10%; background-color:whitesmoke">
+        <div id="searchResultSlot1" class="col-xs-1 btn btn-default"  style="height:100%;padding:0px;border: none;background-color: whitesmoke;" name=""><div style="text-align: center;"></div><img src="css\images\white.png" style="width: 70%;"></div>
+
+        <div id="searchResultSlot2" class="col-xs-1 btn btn-default"   style="height:100%;padding:0px;border: none;background-color: whitesmoke;" name=""><div style="text-align: center;"></div><img src="css\images\white.png" style="width: 70%;"></div>
+        
+        <div id="searchResultSlot3" class="col-xs-1 btn btn-default"   style="height:100%;padding:0px;border: none;background-color: whitesmoke;" name=""><div style="text-align: center;"></div><img src="css\images\white.png" style="width: 70%;"></div>
+
+        <button id="searchButton" class="btn btn-default col-xs-6" style="height:100%;min-height:50px;color:#337ab7"><i class ="fa fa-search fa-2x"></i></button>
+
+        <div id="searchResultSlot4" class="col-xs-1 btn btn-default"   style="height:100%;padding:0px;border: none;background-color: whitesmoke;" name=""><div style="text-align: center;"></div><img src="css\images\white.png" style="width: 70%;"></div>
+        
+        <div id="searchResultSlot5" class="col-xs-1 btn btn-default"   style="height:100%;padding:0px;border: none;background-color: whitesmoke;" name=""><div style="text-align: center;"></div><img src="css\images\white.png" style="width: 70%;"></div>
+        
+        <div id="searchResultSlot6" class="col-xs-1 btn btn-default"   style="height:100%;padding:0px;border: none;background-color: whitesmoke;" name=""><div style="text-align: center;"></div><img src="css\images\white.png" style="width: 70%;"></div>
+
+    </div>
+
+    <div id="searchResultSlotModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="searchResultSlotLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="searchResultSlotLabel"></h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="police_stationModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="police_stationLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="police_stationLabel"></h3>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label class="col-xs-3" for="police_stationStation">Station</label>
+                <label class="col-xs-8" id="police_stationStation" ></label>
+              
+                <label class="col-xs-3" for="police_stationAddress">Address</label>
+                <label class="col-xs-8" id="police_stationAddress" ></label>
+         
+                <label class="col-xs-3" for="police_stationType">Type</label>
+                <label class=" col-xs-8" id="police_stationType" ></label>
+         
+                <label class="col-xs-3" for="police_stationZip">ZIP</label>
+                <label class="col-xs-8" id="police_stationZip" ></label>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="police_storefrontModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="police_storefrontLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="police_storefrontLabel"></h3>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label class="col-xs-3" for="police_storefrontName">Station</label>
+                <label class="col-xs-8" id="police_storefrontName" ></label>
+
+                <label class="col-xs-3" for="police_storefrontAddress">Address</label>
+                <label class="col-xs-8" id="police_storefrontAddress" ></label>
+              </div>              
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="fire_stationModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="fire_stationLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="fire_stationLabel"></h3>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+              <div class="form-group">
+                    <label class="col-xs-3" for="fire_stationName">Station</label>                
+                    <label class="col-xs-8" id="fire_stationName" ></label>
+                
+                    <label class="col-xs-3" for="fire_stationAddress">Address</label>
+                    <label class="col-xs-8" id="fire_stationAddress" ></label>
+                
+                    <label class="col-xs-3" for="fire_stationEngines">Engines</label>                
+                    <label class="col-xs-8" id="fire_stationEngines" ></label>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="clinicModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="clinicLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="clinicLabel"></h3>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+              <div class="form-group">
+                    <label class="col-xs-3">Name</label>                
+                    <label class="col-xs-8" id="clinicName" ></label>
+                
+                    <label class="col-xs-3">Address</label>
+                    <label class="col-xs-8" id="clinicAddress" ></label>
+                
+                    <label class="col-xs-3">ZIP</label>
+                    <label class="col-xs-8" id="clinicZip" ></label>
+              
+                    <label class="col-xs-3">Phone</label>
+                    <label class="col-xs-8" id="clinicPhone" ></label>
+
+                    <label class="col-xs-3">Status</label>
+                    <label class="col-xs-8" id="clinicStatus" ></label>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="hospitalModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="hospitalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="hospitalLabel"></h3>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+              <div class="form-group">
+                    <label class="col-xs-3" for="hospitalName">Name</label>                
+                    <label class="col-xs-8" id="hospitalName" ></label>
+                
+                    <label class="col-xs-3" for="hospitalAddress">Address</label>                
+                    <label class="col-xs-8" id="hospitalAddress" ></label>
+              </div>             
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="mhmraModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mhmraLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="mhmraLabel"></h3>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-xs-3" for="mhmraName">Name</label>
+                    <label class="col-xs-8" id="mhmraName" ></label>
+                
+                    <label class="col-xs-3" for="mhmraAddress">Address</label>
+                    <label class="col-xs-8" id="mhmraAddress" ></label>
+                </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="cell_towersModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="cell_towersLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="cell_towersLabel"></h3>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-xs-3" for="cell_towersName">Name</label>
+                    <label class="col-xs-8" id="cell_towersName" ></label>
+                
+                    <label class="col-xs-3" for="cell_towersCompany">Company</label>
+                    <label class="col-xs-8" id="cell_towersCompany" ></label>
+
+                    <label class="col-xs-3" for="cell_towersHeight">Height</label>
+                    <label class="col-xs-8" id="cell_towersHeight" ></label>
+
+                    <label class="col-xs-3" for="cell_towersAction">Action</label>
+                    <label class="col-xs-8" id="cell_towersAction" ></label>
+                </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="harris_sex_offendersModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="harris_sex_offendersLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="harris_sex_offendersLabel"></h3>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-xs-3" for="harris_sex_offendersName">Name</label>
+                    <label class="col-xs-8" id="harris_sex_offendersName" ></label>
+                
+                    <label class="col-xs-3" for="harris_sex_offendersBirth">Birthday</label>
+                    <label class="col-xs-8" id="harris_sex_offendersBirth" ></label>
+
+                    <label class="col-xs-3" for="harris_sex_offendersSex">Sex</label>
+                    <label class="col-xs-8" id="harris_sex_offendersSex" ></label>
+
+                    <label class="col-xs-3" for="harris_sex_offendersRace">Race</label>
+                    <label class="col-xs-8" id="harris_sex_offendersRace" ></label>
+
+                    <label class="col-xs-3" for="harris_sex_offendersAddress">Address</label>
+                    <label class="col-xs-8" id="harris_sex_offendersAddress" ></label>
+                </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="hazardous_materials_permitsModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="hazardous_materials_permitsLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="hazardous_materials_permitsLabel"></h3>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-xs-3" for="hazardous_materials_permitsStatus">Status</label>
+                    <label class="col-xs-8" id="hazardous_materials_permitsStatus" ></label>
+                
+                    <label class="col-xs-3" for="hazardous_materials_permitsScore">Score</label>
+                    <label class="col-xs-8" id="hazardous_materials_permitsScore" ></label>
+
+                    <label class="col-xs-3" for="hazardous_materials_permitsDescription">Description</label>
+                    <label class="col-xs-8" id="hazardous_materials_permitsDescription" ></label>
+
+                    <label class="col-xs-3" for="hazardous_materials_permitsType">Type</label>
+                    <label class="col-xs-8" id="hazardous_materials_permitsType" ></label>
+
+                    <label class="col-xs-3" for="hazardous_materials_permitsAddress">Address</label>
+                    <label class="col-xs-8" id="hazardous_materials_permitsAddress" ></label>
+                </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="permitted_waste_sitesModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="permitted_waste_sitesLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="permitted_waste_sitesLabel"></h3>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-xs-3" for="permitted_waste_sitesCompany">Company</label>
+                    <label class="col-xs-8" id="permitted_waste_sitesCompany" ></label>
+                
+                    <label class="col-xs-3" for="permitted_waste_sitesHazardous">Hazardous</label>
+                    <label class="col-xs-8" id="permitted_waste_sitesHazardous" ></label>
+
+                    <label class="col-xs-3" for="permitted_waste_sitesStore">Store</label>
+                    <label class="col-xs-8" id="permitted_waste_sitesStore" ></label>
+
+                    <label class="col-xs-3" for="permitted_waste_sitesDisposal">Disposal</label>
+                    <label class="col-xs-8" id="permitted_waste_sitesDisposal" ></label>
+
+                    <label class="col-xs-3" for="permitted_waste_sitesStatus">Status</label>
+                    <label class="col-xs-8" id="permitted_waste_sitesStatus" ></label>
+                </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="toxicsModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="toxicsLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="toxicsLabel"></h3>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-xs-3" for="toxicsName">Name</label>
+                    <label class="col-xs-8" id="toxicsName" ></label>
+                
+                    <label class="col-xs-3" for="toxics2009">2009</label>
+                    <label class="col-xs-8" id="toxics2009" ></label>
+
+                    <label class="col-xs-3" for="toxics2010">2010</label>
+                    <label class="col-xs-8" id="toxics2010" ></label>
+
+                    <label class="col-xs-3" for="toxics2011">2011</label>
+                    <label class="col-xs-8" id="toxics2011" ></label>
+
+                    <label class="col-xs-3" for="toxics2012">2012</label>
+                    <label class="col-xs-8" id="toxics2012" ></label>
+
+                    <label class="col-xs-3" for="toxics2013">2013</label>
+                    <label class="col-xs-8" id="toxics2013" ></label>
+                </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="pipelineModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="pipelineLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="pipelineLabel"></h3>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-xs-3" for="pipelineName">Status</label>
+                    <label class="col-xs-8" id="pipelineName" ></label>
+                
+                    <label class="col-xs-3" for="pipelineDescription">Score</label>
+                    <label class="col-xs-8" id="pipelineDescription" ></label>
+                </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="public_schoolsModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="public_schoolsLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="public_schoolsLabel"></h3>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+              <div class="form-group">
+                    <label class="col-xs-6" >Name</label>                
+                    <label class="col-xs-6" id="public_schoolsName" ></label>
+                
+                    <label class="col-xs-6" >Grade Range</label>
+                    <label class="col-xs-6" id="public_schoolsGradeRange" ></label>
+                
+                    <label class="col-xs-6" >Grade Rating</label>
+                    <label class="col-xs-6" id="public_schoolsRating" ></label>
+              
+                    <label class="col-xs-6" >Grade Type</label>
+                    <label class="col-xs-6" id="public_schoolType" ></label>
+
+                    <label class="col-xs-6" >Number of Student</label>
+                    <label class="col-xs-6" id="public_schoolsStudentNumber" ></label>
+
+                    <label class="col-xs-6" >Avg. ACT Score</label>
+                    <label class="col-xs-6" id="public_schoolsAct" ></label>
+
+                    <label class="col-xs-6" >Avg. SAT Score</label>
+                    <label class="col-xs-6" id="public_schoolsSat" ></label>
+
+                    <label class="col-xs-6" >SAT Writing</label>
+                    <label class="col-xs-6" id="public_schoolsSatWriting" ></label>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="hcde_afterschool_programsModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="hcde_afterschool_programsLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="hcde_afterschool_programsLabel"></h3>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+              <div class="form-group">
+                    <label class="col-xs-3">Name</label>                
+                    <label class="col-xs-8" id="hcde_afterschool_programsName" ></label>
+                
+                    <label class="col-xs-3">Address</label>
+                    <label class="col-xs-8" id="hcde_afterschool_programsAddress" ></label>
+                
+                    <label class="col-xs-3">ZIP</label>
+                    <label class="col-xs-8" id="hcde_afterschool_programsZip" ></label>
+              
+                    <label class="col-xs-3" >Description</label>
+                    <label class="col-xs-8" id="hcde_afterschool_programsDescription" ></label>
+
+                    <label class="col-xs-3">Phone</label>
+                    <label class="col-xs-8" id="hcde_afterschool_programsPhone" ></label>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="school_districtModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="school_districtLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="school_districtLabel"></h3>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+              <div class="form-group">
+                    <label class="col-xs-3">Name</label>                
+                    <label class="col-xs-8" id="school_districtName" ></label>                                  
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="traffic_countModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="traffic_countLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="traffic_countLabel"></h3>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+              <div class="form-group">
+                    <label class="col-xs-3">Count</label>
+                    <label class="col-xs-8" id="traffic_countCount" ></label>
+
+                    <label class="col-xs-3">Year</label>
+                    <label class="col-xs-8" id="traffic_countYear" ></label>
+
+                    <label class="col-xs-3">Segment</label>
+                    <label class="col-xs-8" id="traffic_countSegment" ></label>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="super_neighborhoodsModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="super_neighborhoodsLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="super_neighborhoodsLabel"></h3>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+              <div class="form-group">
+                    <label class="col-xs-3">Name</label>
+                    <label class="col-xs-8" id="super_neighborhoodsName" ></label>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="appraisal_hcad_parcels_info_2014_tileModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="appraisal_hcad_parcels_info_2014_tileLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="appraisal_hcad_parcels_info_2014_tileLabel"></h3>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+              <div class="form-group">
+                  <label class="col-xs-4">Parcel Type</label>
+                  <label class="col-xs-8" id="appraisal_hcad_parcels_info_2014_tileDescription" ></label>
+
+                  <label class="col-xs-4">Total Value</label>
+                  <label class="col-xs-8" id="appraisal_hcad_parcels_info_2014_tileValue" ></label>
+
+                  <label class="col-xs-4">Year</label>
+                  <label class="col-xs-8" id="appraisal_hcad_parcels_info_2014_tileYear" ></label>
+
+                  <label class="col-xs-4">Address</label>
+                  <label class="col-xs-8" id="appraisal_hcad_parcels_info_2014_tileAddress" ></label>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="hpd_crimeModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="hpd_crimeLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="hpd_crimeLabel"></h3>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal">
+              <div class="form-group">
+                  <label class="col-xs-4">Type</label>
+                  <label class="col-xs-8" id="hpd_crimeType" ></label>
+
+                  <label class="col-xs-4">Date</label>
+                  <label class="col-xs-8" id="hpd_crimeDate" ></label>
+
+                  <label class="col-xs-4">Hour-24</label>
+                  <label class="col-xs-8" id="hpd_crimeHour" ></label>
+
+                  <label class="col-xs-4">Premise</label>
+                  <label class="col-xs-8" id="hpd_crimePremise" ></label>
+
+                  <label class="col-xs-4">Address</label>
+                  <label class="col-xs-8" id="hpd_crimeAddress" ></label>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- responsive ads -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-6102434475835326"
+     data-ad-slot="6910988299"
+     data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+    <div id="popup"></div>
+    
+    <link rel="stylesheet" href="css/lib-dacfaaeabf.css">
+
+    <link rel="stylesheet" href="css/app-f62d758f4c.css">
+    
+    <!-- for phonegap build -->
+    <script type="text/javascript" src="phonegap.js"></script>
+
+    <script src="js/app-35a6002e85.js"></script>
+</body>
+
+</html>
